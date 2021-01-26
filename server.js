@@ -15,6 +15,10 @@ app.get("/", function (req, res) {
     res.sendFile(path.join(__dirname, "public/index.html"));
 });
 
+app.get("*", function (req, res) {
+    res.sendFile(path.join(__dirname, "public/index.html"));
+});
+
 app.get("/notes", function (req, res) {
     res.sendFile(path.join(__dirname, "public/notes.html"));
 });
@@ -24,7 +28,7 @@ app.get("/notes", function (req, res) {
 // =============================================================
 // Changed from return response to db.json after checking instructions
 app.get("/api/notes", function (req, res) {
-    res.sendFile(path.join(__dirname, "db/db.json"));
+    res.sendFile(path.join(__dirname, "/db/db.json"));
 });
 
 // Receive new notes to save on the request body and return the new note to the client
