@@ -28,22 +28,19 @@ app.get("/api/notes", function (req, res) {
     res.sendFile(path.join(__dirname, "/db/db.json"));
 });
 
-// Receive new notes to save on the request body and return the new note to the client
-app.post("/api/notes"), function (req, res) {
-    let notes = JSON.parse(fs.readFileSync("/db/db.json", "utf-8"))
+app.post("/api/notes", function (req, res) {
     let newNotes = req.body;
-    let notesID = (notes.length).toString();
-    newNotes.id = notesID;
-    notes.push(newNotes);
-    fs.writeFileSync("/db/db.json", JSON.stringify(notes)); {
+    fs.writeFile("./db/db.json", JSON.stringify(newNotes), function (err) {
         if (err) throw err;
-    }
-}
+    });
+});
 
-// Delete notes by unique ID
-app.delete("/api/notes/:id", function (req, res) {
-})
 
+
+//delete note`
+app.delete('/api/notes/:id', function (req, res) {
+
+});
 
 // Starts the server to begin listening
 // =============================================================
