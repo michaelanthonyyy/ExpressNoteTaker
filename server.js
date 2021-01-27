@@ -3,22 +3,27 @@ var path = require("path");
 var fs = require("fs");
 
 var app = express();
-var PORT = 3000;
+
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static('public'))
 
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log(`Our app is running on port ${ PORT }`);
+});
 
 // HTML Routes (frontend)
 // =============================================================
 app.get("/", function (req, res) {
-    res.sendFile(path.join(__dirname, "/public/index.html"));
+    res.sendFile(path.join(__dirname, "./public/index.html"));
 });
 
 app.get("/notes", function (req, res) {
-    res.sendFile(path.join(__dirname, "/public/notes.html"));
+    res.sendFile(path.join(__dirname, "./public/notes.html"));
 });
+
 
 
 // API Routes (backend)
@@ -31,7 +36,7 @@ app.get("/api/notes", function (req, res) {
 
 // reads db.json file assigning id to each note
 app.post("/api/notes", function (req, res) {
-    let notesObject = JSON.parse(fs.readFileSync('/db/db.json'));
+    let notesObject = JSON.parse(fs.readFileSync('./db/db.json'));
     let noteBody = req.body
     // pushes parsed notes into saved notes
     notesObject.push(noteBody);
@@ -44,9 +49,9 @@ app.post("/api/notes", function (req, res) {
 
 //delete note
 app.delete('/api/notes/:id', function (req, res) {
-    let notesObject = JSON.parse(fs.readFileSync('/db/db.json'));
+    let notesObject = JSON.parse(fs.readFileSync('./db/db.json'));
     notesObject.splice(req.params.id-10, 1);
-    fs.writeFile("/db/db.json", JSON.stringify(notesObject), function (err) {
+    fs.writeFile("./db/db.json", JSON.stringify(notesObject), function (err) {
         if (err) console.log(notes);
     })
     res.send()
