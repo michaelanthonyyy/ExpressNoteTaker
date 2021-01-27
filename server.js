@@ -26,6 +26,7 @@ app.get("/notes", function (req, res) {
 // Changed from return response to db.json
 app.get("/api/notes", function (req, res) {
     res.sendFile(path.join(__dirname, "/db/db.json"));
+    
 });
 
 // reads db.json file assigning id to each note
@@ -40,8 +41,6 @@ app.post("/api/notes", function (req, res) {
     })
     res.send();
 })
-
-
 
 //delete note
 app.delete('/api/notes/:id', function (req, res) {
@@ -59,3 +58,6 @@ app.delete('/api/notes/:id', function (req, res) {
 app.listen(PORT, function () {
     console.log("App listening on PORT " + PORT);
 });
+
+
+
