@@ -9,6 +9,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static('public'))
 
+
 // HTML Routes (frontend)
 // =============================================================
 app.get("/", function (req, res) {
@@ -22,7 +23,7 @@ app.get("/notes", function (req, res) {
 
 // API Routes (backend)
 // =============================================================
-// Changed from return response to db.json after checking instructions
+// Changed from return response to db.json
 app.get("/api/notes", function (req, res) {
     res.sendFile(path.join(__dirname, "/db/db.json"));
 });
@@ -31,6 +32,7 @@ app.get("/api/notes", function (req, res) {
 app.post("/api/notes", function (req, res) {
     let notesObject = JSON.parse(fs.readFileSync('./db/db.json'));
     let noteBody = req.body
+    // pushes parsed notes into saved notes
     notesObject.push(noteBody);
     // writes file to db.json
     fs.writeFile("./db/db.json", JSON.stringify(notesObject), function (err) {
@@ -43,7 +45,12 @@ app.post("/api/notes", function (req, res) {
 
 //delete note
 app.delete('/api/notes/:id', function (req, res) {
-
+    let notesObject = JSON.parse(fs.readFileSync('./db/db.json'));
+    notesObject.splice(req.params.id-10, 1);
+    fs.writeFile("./db/db.json", JSON.stringify(notesObject), function (err) {
+        if (err) console.log(notes);
+    })
+    res.send()
 });
 
 
