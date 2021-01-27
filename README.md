@@ -11,7 +11,7 @@ A user wanted to be able to write and save notes while also being able to delete
 ![Screenshot](public/assets/images/screenshot.png)
 
 
-![GIF](Assets/images/demo.gif)
+![GIF](public/assets/images/demo.gif)
 
 <br>
 <br>
